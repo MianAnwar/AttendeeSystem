@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "420218018777",
+    "firebase_url": "https://esca-technology-16813.firebaseio.com",
+    "project_id": "esca-technology-16813",
+    "storage_bucket": "esca-technology-16813.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:420218018777:android:eed6f496f0ef380ad2d7c8",
+        "android_client_info": {
+          "package_name": "com.attendence.escatechonology"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "420218018777-rdoqvaook939sc4fj689o60kt9r1dmkq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBec1ky-GZm2sIxHvIKLSO1zLSRxa-KheI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "420218018777-rdoqvaook939sc4fj689o60kt9r1dmkq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
