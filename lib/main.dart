@@ -25,7 +25,9 @@ class _MyAppState extends State<MyApp> {
   void initializeFlutterFire() async {
     try {
       // Wait for Firebase to initialize and set `_initialized` state to true
-      await Firebase.initializeApp(); //////////////////////////////////////////
+      //////////////////////////////////////////////////////////////////
+      await Firebase.initializeApp(); //////////////////////////////////
+      //////////////////////////////////////////////////////////////////
       setState(() {
         _initialized = true;
       });

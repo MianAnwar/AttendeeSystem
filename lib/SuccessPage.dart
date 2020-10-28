@@ -20,7 +20,8 @@ class _SuccessPageState extends State<SuccessPage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 logoHeader(context), // This function returns the LOGO
-                showFormattedMessage("SUCESSFULLY \n L O G I N", 40.9),
+                showFormattedMessage(
+                    "SUCESSFULLY \n Attendence\n Submitted", 40.9),
                 showCredentials(),
                 showButtonTogoHome(),
               ],

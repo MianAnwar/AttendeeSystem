@@ -8,7 +8,6 @@ class AuthService {
     try {
       UserCredential res =
           await _auth.signInWithEmailAndPassword(email: e, password: p);
-
       return res;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {

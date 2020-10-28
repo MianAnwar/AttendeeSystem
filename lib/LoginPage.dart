@@ -1,6 +1,7 @@
 import 'package:escatechonology/Services/authentication.dart';
 import 'package:flutter/material.dart';
 import 'MainPage.dart';
+//import 'Services/DatabaseServices.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -10,6 +11,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
 //
   final AuthService _auth = AuthService();
+
   var _formKey = GlobalKey<FormState>();
 //
   String email = "startingE";
@@ -158,35 +160,49 @@ class _LoginPageState extends State<LoginPage> {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   void _loginFunction() async {
+    /// first to validate form, if is, then continue otherwise do nothing at all
     if (_formKey.currentState.validate()) {
+      //
+      // update the variables
       setState(() {
         this.email = this.emailCtl.text;
         this.password = this.passwordCtl.text;
       });
 
+      /// siging in with email
       dynamic res = await _auth.sigIn(this.email, this.password);
       if (res == null) {
+        CircularProgressIndicator(
+          backgroundColor: Colors.deepOrange,
+        );
+        // in case of error
         setState(() {
           this.error = "Could not Login, some error occurred!";
         });
       } else if (res == -1) {
+        // in case not a correct registered email
         setState(() {
           this.error = "No user found for that email.";
         });
       } else if (res == -2) {
+        // in case not a correct registered password
         setState(() {
           this.error = "Wrong password provided for that user.";
         });
       } else {
+        // in case successfully login
+        // with correct registerred email and pasword
         setState(() {
           this.error = "";
         });
-        String id = res.user.uid;
+
+        //String id = res.user.uid; //displayName
+
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) {
-              return MainPage(id, this.email);
+              return MainPage("Email(Empolyee ID)", this.email);
             },
           ),
         );

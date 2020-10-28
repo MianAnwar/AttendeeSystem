@@ -10,7 +10,7 @@ class _ErrorPageState extends State<ErrorPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.deepOrange,
+        backgroundColor: Colors.black54,
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Padding(
@@ -19,7 +19,8 @@ class _ErrorPageState extends State<ErrorPage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 logoHeader(context), // This function returns the LOGO
-                showFormattedMessage("Something Wrong \n E R R O R", 40.9),
+                showFormattedMessage(
+                    "E R R O R\n Something Wrong \n with QR Code", 40.9),
                 showButtonTogoHome(),
               ],
             ),

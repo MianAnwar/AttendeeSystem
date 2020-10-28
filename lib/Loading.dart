@@ -17,10 +17,15 @@ class _LoadingState extends State<Loading> {
       ),
       home: Container(
         color: Colors.deepPurple[300],
-        child: Center(
-          child: CircularProgressIndicator(
-            backgroundColor: Colors.white,
-          ),
+        child: Column(
+          children: [
+            Text("ESCA TECH"),
+            Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.white,
+              ),
+            ),
+          ],
         ),
       ),
     );

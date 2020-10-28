@@ -1,43 +1,27 @@
+import 'package:escatechonology/ErrorPage.dart';
 import 'package:flutter/material.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
+import 'Services/DatabaseServices.dart';
 import 'SuccessPage.dart';
 
 class MainPage extends StatefulWidget {
-  ////
-  static String username;
-  static String email;
   MainPage(String username, String email) {
     MainPage.username = username;
     MainPage.email = email;
   }
+
+  static String email;
+  static String username;
 
   @override
   _MainPageState createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-  String info = "";
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        //  backgroundColor: Colors.deepPurple[50],
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              logoHeader(context), // This function returns the LOGO
-              showFormattedMessage("W E L C O M E", 40.9),
-              showCredentials(),
-              showFormattedMessage("SCAN TO LOG ATTENDENCE", 25),
-              showButtonToScan(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+  String scanError = "";
+  String scanInfo = "";
+
+  final DatabaseServices _dServce = DatabaseServices();
 
   Widget logoHeader(BuildContext context) {
     AssetImage aImg = AssetImage("assets/logo.png");
@@ -65,9 +49,11 @@ class _MainPageState extends State<MainPage> {
         ),
         // to see the value of qr code
         Text(
-          this.info,
+          this.scanError,
           style: TextStyle(
-              color: Colors.cyan, fontWeight: FontWeight.w700, fontSize: 20),
+              color: Colors.redAccent,
+              fontWeight: FontWeight.w700,
+              fontSize: 14),
         ),
       ],
     );
@@ -114,23 +100,73 @@ class _MainPageState extends State<MainPage> {
 
       if (barcode != "") {
         setState(() {
-          this.info = barcode;
+          this.scanInfo = barcode;
         });
         proceedToSubmitToFB();
       }
     }
   }
 
-  void proceedToSubmitToFB() {
+  void proceedToSubmitToFB() async {
     ///////////////////////////////////////
     // code here to put data to firebase //
-    ///////////////////////////////////////
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) {
-          return SuccessPage();
-        },
+
+    if (scanInfo.toLowerCase() == "meeting" ||
+        scanInfo.toLowerCase() == "conference") {
+      dynamic v =
+          await _dServce.addUserAttendence(MainPage.email, this.scanInfo);
+      CircularProgressIndicator();
+      if (v == null || v == -1) {
+        setState(() {
+          this.scanError =
+              "\n\nystem could not submit your attendence! \nOR\n\t You have already Submitted your Attendence. \nCheck Internet Connectivity! \nContact Devleoper";
+        });
+      } else if (v == 1) {
+        setState(() {
+          this.scanError = scanInfo;
+        });
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return SuccessPage();
+            },
+          ),
+        );
+      }
+    } else {
+      setState(() {
+        this.scanError = "\n\n Invalid QR Code!";
+      });
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return ErrorPage();
+          },
+        ),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        //  backgroundColor: Colors.deepPurple[50],
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              logoHeader(context), // This function returns the LOGO
+              showFormattedMessage("W E L C O M E", 40.9),
+              showCredentials(),
+              showFormattedMessage("SCAN TO LOG ATTENDENCE", 25),
+              showButtonToScan(),
+            ],
+          ),
+        ),
       ),
     );
   }
