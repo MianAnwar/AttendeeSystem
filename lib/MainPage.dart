@@ -42,20 +42,32 @@ class _MainPageState extends State<MainPage> {
         ),
         Text(
           MainPage.email,
+          textAlign: TextAlign.center,
           style: TextStyle(
               color: Colors.indigoAccent,
               fontWeight: FontWeight.w700,
-              fontSize: 25),
+              fontSize: 37),
         ),
         // to see the value of qr code
-        Text(
-          this.scanError,
-          style: TextStyle(
-              color: Colors.redAccent,
-              fontWeight: FontWeight.w700,
-              fontSize: 14),
-        ),
+        showErrorMsg(),
       ],
+    );
+  }
+
+  Widget showErrorMsg() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 38.0),
+      child: Text(
+        this.scanError,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: (this.scanError != "meeting" && this.scanError != "conference")
+              ? Colors.red[200]
+              : Colors.green,
+          fontWeight: FontWeight.w700,
+          fontSize: 25,
+        ),
+      ),
     );
   }
 

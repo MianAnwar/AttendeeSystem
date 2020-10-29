@@ -51,10 +51,11 @@ class _SuccessPageState extends State<SuccessPage> {
         ),
         Text(
           MainPage.email,
+          textAlign: TextAlign.center,
           style: TextStyle(
               color: Colors.indigoAccent,
               fontWeight: FontWeight.w700,
-              fontSize: 25),
+              fontSize: 37),
         ),
       ],
     );

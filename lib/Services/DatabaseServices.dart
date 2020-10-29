@@ -17,7 +17,9 @@ class DatabaseServices {
         .doc(email)
         .set({
           'Room': scanInfo,
-          'Time': (DateTime.now().millisecondsSinceEpoch),
+          'Time': (DateTime.now().hour).toString() +
+              ":" +
+              (DateTime.now().minute).toString(),
         })
         .then((value) => 1) // added
         .catchError((onError) => -1); //failed to add

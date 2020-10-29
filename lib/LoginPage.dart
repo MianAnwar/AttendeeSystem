@@ -202,7 +202,7 @@ class _LoginPageState extends State<LoginPage> {
           context,
           MaterialPageRoute(
             builder: (context) {
-              return MainPage("Email(Empolyee ID)", this.email);
+              return MainPage("", this.email);
             },
           ),
         );
