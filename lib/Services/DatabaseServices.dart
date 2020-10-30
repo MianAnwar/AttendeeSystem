@@ -13,13 +13,15 @@ class DatabaseServices {
     CollectionReference attCollection =
         FirebaseFirestore.instance.collection(todayDate);
 
+    var h = (DateTime.now().hour % 12).toString();
+    var m = (DateTime.now().minute).toString();
+    var cc = (DateTime.now().hour) > 12 ? "pm" : "am";
+
     return attCollection
         .doc(email)
         .set({
           'Room': scanInfo,
-          'Time': (DateTime.now().hour).toString() +
-              ":" +
-              (DateTime.now().minute).toString(),
+          'Time': h + ":" + m + " " + cc,
         })
         .then((value) => 1) // added
         .catchError((onError) => -1); //failed to add
